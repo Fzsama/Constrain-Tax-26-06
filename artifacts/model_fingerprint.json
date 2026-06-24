@@ -1,0 +1,27 @@
+{
+  "description": "A2 训练模型指纹 — 用于唯一标识和复现验证",
+  "model_name": "loraed_Qwopus3.6-35B-A3B-a2-0623",
+  "base_model": "Qwen/Qwen3.6-35B-A3B (Qwopus)",
+  "training_date": "2026-06-23",
+  "training_method": "SFT (LoRA via Unsloth Studio)",
+  "training_data": {
+    "size": 8000,
+    "format": "A2 JSON-embedded tool calls",
+    "huggingface": "FZSAMA/qwen-a2-constraint-tax-data"
+  },
+  "model_config": {
+    "architectures": ["Qwen3_5MoeForConditionalGeneration"],
+    "model_type": "qwen3_5_moe",
+    "finetune_type": "LoRA"
+  },
+  "adapter_info": {
+    "num_safetensors": 26,
+    "path": "outputs/loraed_Qwopus3.6-35B-A3B-a2-0623/"
+  },
+  "verification": {
+    "T1_baseline": "95% (19/20) — tools=ON, schema=OFF",
+    "T2_emission": "95% (19/20) — tools=ON, schema=ON (A2 JSON)",
+    "T2_valid_json": "20% (4/20) — tools=ON, schema=ON (严格解析)",
+    "T3_json_only": "5% (1/20) — tools=OFF, schema=ON"
+  }
+}

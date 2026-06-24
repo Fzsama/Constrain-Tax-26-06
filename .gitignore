@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.egg
+
+# Virtual environments & env files
+.venv/
+venv/
+*.env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Training outputs (large binary files)
+outputs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reference (external git repos, not part of this project)
+doc/reference/
+
+# Data (generated, not source)
+data/generated/
+data/processed/
+data/reports/
+data/seeds/seed_traces/
+
+# Unsloth compiled cache
+unsloth_compiled_cache/
+
+# Logs
+logs/
+
+#tmpe
+tmp/
+
+# Wheel files
+*.whl
+data/seeds/seed_traces/

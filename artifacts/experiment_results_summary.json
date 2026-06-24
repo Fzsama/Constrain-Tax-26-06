@@ -1,0 +1,119 @@
+{
+  "description": "Constraint Tax 实验矩阵 — 完整结果汇总",
+  "date": "2026-06-24",
+  "model": "Qwen3.6-35B-A3B (Qwopus)",
+  "base_model": "Qwen/Qwen3.6-35B-A3B",
+  "test_protocol": {
+    "T1": "tools=ON, response_format=OFF (工具调用基线)",
+    "T2": "tools=ON, response_format=ON (双重约束 — 关键测试)",
+    "T3": "tools=OFF, response_format=ON (JSON 合规对照)"
+  },
+  "experiments": [
+    {
+      "id": 1,
+      "method": "SFT 业务数据",
+      "data_size": 870,
+      "data_source": "Evolutionary Agent production traces",
+      "T1_tool_calls": 2,
+      "T1_rounds": 5,
+      "T2": "0%",
+      "T2_rounds": 20,
+      "T3": "—",
+      "conclusion": "学到 hallucination — 模型编造公司信息"
+    },
+    {
+      "id": 2,
+      "method": "SFT Tool Mandatory",
+      "data_size": 200,
+      "data_source": "scripts/04_generate_tool_mandatory_data.py",
+      "T1_tool_calls": 109,
+      "T1_rounds": 200,
+      "T2": "0%",
+      "T2_rounds": 20,
+      "T3": "—",
+      "conclusion": "Tool dependency 已学会但 T2=0%"
+    },
+    {
+      "id": "3-4",
+      "method": "SFT Schema Injection",
+      "data_size": 200,
+      "data_source": "Schema in system prompt",
+      "T1_tool_calls": 109,
+      "T1_rounds": 200,
+      "T2": "0%",
+      "T2_rounds": 40,
+      "T3": "—",
+      "conclusion": "Schema-text mismatch 非根因"
+    },
+    {
+      "id": 5,
+      "method": "GRPO (RL, Golden Anchor)",
+      "data_size": 200,
+      "data_source": "scripts/06_train_grpo.py",
+      "T1_tool_calls": "100%",
+      "T1_rounds": 20,
+      "T2": "0%",
+      "T2_rounds": 20,
+      "T3": "—",
+      "training_metrics": {
+        "ppo_loss_final": -0.897,
+        "approx_kl_range": "0.29~0.56",
+        "ratio_mean_range": "0.83~1.05"
+      },
+      "conclusion": "RL 学到偏好但 FSM 硬 mask 阻止表达"
+    },
+    {
+      "id": 6,
+      "method": "SFT 规模数据",
+      "data_size": 6000,
+      "data_source": "GPT-5.4-mini 合成, data/processed/synthetic_6000/",
+      "T1": "60%",
+      "T1_rounds": 20,
+      "T2": "0%",
+      "T2_rounds": 20,
+      "T3": "—",
+      "conclusion": "数据量非瓶颈 — 规模 SFT 也无法突破"
+    },
+    {
+      "id": 7,
+      "method": "A2 JSON 内嵌 tool_calls",
+      "data_size": 8000,
+      "data_source": "GPT-5.4-mini 合成, data/processed/a2_synthetic_8000/",
+      "T1": "95% (19/20)",
+      "T2_emission_rate": "95% (19/20)",
+      "T2_valid_json_rate": "20% (4/20)",
+      "T2_rounds": 20,
+      "T3": "5% (1/20)",
+      "T3_rounds": 20,
+      "ablation": {
+        "temp_0.8_tokens_512": {"T2_emission": "20%", "T2_valid_json": "0%"},
+        "temp_0.3_tokens_1024": {"T2_emission": "70%", "T2_valid_json": "15%"},
+        "temp_0.3_tokens_4096": {"T2_emission": "95%", "T2_valid_json": "20%"}
+      },
+      "conclusion": "✅ 首次突破 Constraint Tax — emission rate 达 95%"
+    }
+  ],
+  "cross_model_testing": {
+    "description": "9 模型跨模型/跨框架验证 (单任务 × 5轮/条件)",
+    "data_source": "ea-aim-fz-qwen-0602 (evidence 已复制到 evidence/cross_model_testing/)",
+    "models_tested": 9,
+    "models_with_T2_0pct": 8,
+    "only_immune_model": "GPT-5.4-mini (闭源)",
+    "excluded_factors": [
+      "推理框架 (SGLang vs vLLM)",
+      "模型规模 (35B→397B)",
+      "模型架构 (MoE/Dense/Hybrid Mamba-MoE)",
+      "量化方式 (FP16/Int4/FP8)",
+      "部署环境 (本地 vs 云端)"
+    ]
+  },
+  "data_locations": {
+    "training_data_6000": "HF: FZSAMA/qwen-constraint-tax-training-data + data/processed/synthetic_6000/",
+    "training_data_8000_a2": "HF: FZSAMA/qwen-a2-constraint-tax-data + data/processed/a2_synthetic_8000/",
+    "a2_seed_data": "data/processed/a2_seed_data.json (30 samples)",
+    "a2_v2_seed_data": "data/processed/a2_v2_seed_data.json (40 samples, 50:50)",
+    "grpo_training_log": "logs/GRPO.log",
+    "a2_model_output": "outputs/loraed_Qwopus3.6-35B-A3B-a2-0623/",
+    "cross_model_evidence": "evidence/cross_model_testing/"
+  }
+}

@@ -1,0 +1,49 @@
+# Constraint Tax — 核心依赖
+# 训练环境: conda lora_qwen_0612 (Python 3.12, CUDA 12.6)
+
+# ── 训练 ──
+torch>=2.10.0
+transformers>=5.5.0
+peft>=0.17.0
+accelerate>=1.0.0
+datasets>=3.0.0
+
+# ── 推理 (服务端) ──
+# SGLang 0.5.9: 需从源码安装 (见下方说明)
+# vLLM 0.22.0: 需从源码安装，CUDA 12.6 driver
+
+# ── Token 级分析 ──
+# xgrammar: 随 SGLang/vLLM 安装
+
+# ── 测试 ──
+requests>=2.31.0
+
+# ── 工具 ──
+numpy>=1.26.0
+tqdm>=4.66.0
+
+# ═══════════════════════════════════════════════════════════════════
+# 完整环境安装说明
+# ═══════════════════════════════════════════════════════════════════
+#
+# 1. 训练环境 (lora_qwen_0612):
+#    conda create -n lora_qwen_0612 python=3.12
+#    conda activate lora_qwen_0612
+#    pip install torch transformers peft accelerate datasets
+#    pip install requests numpy tqdm
+#
+# 2. SGLang 推理环境 (sglang_059):
+#    conda create -n sglang_059 python=3.12
+#    conda activate sglang_059
+#    pip install sglang==0.5.9
+#
+# 3. vLLM 推理环境 (vllm_0605):
+#    conda create -n vllm_0605 python=3.12
+#    conda activate vllm_0605
+#    pip install vllm==0.22.0
+#    # NVIDIA driver 535 → CUDA 12.6, 需设置:
+#    export LD_LIBRARY_PATH="/root/miniforge3/envs/vllm_0605/lib/python3.12/site-packages/nvidia/cu13/lib:$LD_LIBRARY_PATH"
+#
+# 4. GPU 要求:
+#    2× NVIDIA A800-SXM4-80GB (或同等 80GB+ VRAM GPU)
+#    所有模型使用 tensor-parallel-size=2

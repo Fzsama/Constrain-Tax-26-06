@@ -1,0 +1,38 @@
+{
+  "description": "GRPO 训练日志摘要 (Golden Anchor 机制)",
+  "date": "2026-06-15",
+  "source": "logs/GRPO.log",
+  "config": {
+    "prompts": 200,
+    "completions_per_prompt": 4,
+    "total_samples": 800,
+    "golden_samples": 200,
+    "epochs": 3,
+    "training_batches": 500,
+    "inference_framework": "SGLang 0.5.9 (localhost:8082)"
+  },
+  "generation_stats": {
+    "completed": 800,
+    "model_tool_call_rate": "0/800 = 0.0%",
+    "golden_has_tool_call": 200,
+    "note": "Generation 阶段 (tools=ON, schema=OFF): 模型自由生成 tool_call=0% — 但在 schema=ON (T2) 条件下才出现真正的 Constraint Tax。Generation 时的 0% 是因为 prompt 不要求 tool_call"
+  },
+  "training_metrics": {
+    "epoch_1": {
+      "final_loss": -0.897,
+      "approx_kl": 0.29,
+      "ratio_mean": 1.02
+    },
+    "epoch_2": {
+      "final_loss": -0.897,
+      "approx_kl": 0.56,
+      "ratio_mean": 0.83
+    },
+    "epoch_3": {
+      "final_loss": -0.897,
+      "approx_kl": 0.32,
+      "ratio_mean": 1.05
+    }
+  },
+  "interpretation": "GRPO 产生有效学习信号 (loss 负值收敛, kl 正常范围, ratio 偏离基线), LoRA adapter 已验证生效, 但推理时 response_format 在解码层对 <tool_call> token 施加的硬 mask 使学到的偏好无法表达。这是 GRPO 训练无效的根因 — 权重级优化和掩码级压制作用在不同通道上。"
+}

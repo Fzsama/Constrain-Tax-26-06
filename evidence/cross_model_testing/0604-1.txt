@@ -1,0 +1,96 @@
+(sglang_059) root@nfparpjlk31e-0:/zhangaimin# no_proxy="$no_proxy,0.0.0.0" SGLANG_USE_MODELSCOPE=true python -m sglang.launch_server --model-path /root/.cache/modelscope/hub/models/Qwen/Qwen3.5-122B-A10B-FP8 \
+--served-model-name qw35-122b-a10b-fp8 \
+--port 8082 \
+--host 0.0.0.0 \
+--tp-size 2 \
+--mem-fraction-static 0.85 \
+--max-total-tokens 128144 \
+--max-running-requests 64 \
+--chunked-prefill-size 8192 \
+--enable-flashinfer \
+--enable-torch-compile \
+--log-level warning \
+--reasoning-parser qwen3 \
+--tool-call-parser qwen3_coder \
+--trust-remote-code
+[2026-06-04 13:56:17] WARNING server_args.py:1748: Disabling overlap schedule since mamba no_buffer is not compatible with overlap schedule, try to use --disable-radix-cache if overlap schedule is necessary
+[2026-06-04 13:56:17] INFO server_args.py:1835: Attention backend not specified. Use flashinfer backend by default.
+[2026-06-04 13:56:19] Ignore import error when loading sglang.srt.multimodal.processors.glmasr: cannot import name 'GlmAsrConfig' from 'transformers' (/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/transformers/__init__.py)
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[2026-06-04 13:56:27 TP1] Ignore import error when loading sglang.srt.models.glm_ocr: No module named 'transformers.models.glm_ocr'
+[2026-06-04 13:56:27 TP0] Ignore import error when loading sglang.srt.models.glm_ocr: No module named 'transformers.models.glm_ocr'
+[2026-06-04 13:56:27 TP1] Ignore import error when loading sglang.srt.models.glm_ocr_nextn: No module named 'transformers.models.glm_ocr'
+[2026-06-04 13:56:27 TP0] Ignore import error when loading sglang.srt.models.glm_ocr_nextn: No module named 'transformers.models.glm_ocr'
+[2026-06-04 13:56:27 TP1] Ignore import error when loading sglang.srt.models.glmasr: cannot import name 'GlmAsrConfig' from 'transformers' (/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/transformers/__init__.py)
+[2026-06-04 13:56:27 TP0] Ignore import error when loading sglang.srt.models.glmasr: cannot import name 'GlmAsrConfig' from 'transformers' (/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/transformers/__init__.py)
+`torch_dtype` is deprecated! Use `dtype` instead!
+`torch_dtype` is deprecated! Use `dtype` instead!
+[2026-06-04 13:56:28 TP0] using attn output gate!
+[2026-06-04 13:56:28 TP1] using attn output gate!
+Loading safetensors checkpoint shards:   0% Completed | 0/39 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:   3% Completed | 1/39 [00:00<00:24,  1.54it/s]
+Loading safetensors checkpoint shards:   5% Completed | 2/39 [00:01<00:26,  1.39it/s]
+Loading safetensors checkpoint shards:   8% Completed | 3/39 [00:02<00:25,  1.39it/s]
+Loading safetensors checkpoint shards:  10% Completed | 4/39 [00:03<00:32,  1.06it/s]
+Loading safetensors checkpoint shards:  13% Completed | 5/39 [00:03<00:26,  1.28it/s]
+Loading safetensors checkpoint shards:  15% Completed | 6/39 [00:04<00:25,  1.31it/s]
+Loading safetensors checkpoint shards:  18% Completed | 7/39 [00:05<00:23,  1.36it/s]
+Loading safetensors checkpoint shards:  21% Completed | 8/39 [00:06<00:22,  1.38it/s]
+Loading safetensors checkpoint shards:  23% Completed | 9/39 [00:07<00:26,  1.13it/s]
+Loading safetensors checkpoint shards:  26% Completed | 10/39 [00:08<00:24,  1.19it/s]
+Loading safetensors checkpoint shards:  28% Completed | 11/39 [00:09<00:27,  1.02it/s]
+Loading safetensors checkpoint shards:  31% Completed | 12/39 [00:10<00:24,  1.09it/s]
+Loading safetensors checkpoint shards:  33% Completed | 13/39 [00:10<00:22,  1.17it/s]
+Loading safetensors checkpoint shards:  36% Completed | 14/39 [00:12<00:24,  1.02it/s]
+Loading safetensors checkpoint shards:  38% Completed | 15/39 [00:12<00:21,  1.11it/s]
+Loading safetensors checkpoint shards:  41% Completed | 16/39 [00:13<00:19,  1.18it/s]
+Loading safetensors checkpoint shards:  44% Completed | 17/39 [00:14<00:17,  1.26it/s]
+Loading safetensors checkpoint shards:  46% Completed | 18/39 [00:15<00:18,  1.12it/s]
+Loading safetensors checkpoint shards:  49% Completed | 19/39 [00:15<00:16,  1.20it/s]
+Loading safetensors checkpoint shards:  51% Completed | 20/39 [00:16<00:15,  1.27it/s]
+Loading safetensors checkpoint shards:  54% Completed | 21/39 [00:17<00:13,  1.31it/s]
+Loading safetensors checkpoint shards:  56% Completed | 22/39 [00:18<00:12,  1.36it/s]
+Loading safetensors checkpoint shards:  59% Completed | 23/39 [00:18<00:11,  1.39it/s]
+Loading safetensors checkpoint shards:  62% Completed | 24/39 [00:19<00:13,  1.15it/s]
+Loading safetensors checkpoint shards:  64% Completed | 25/39 [00:21<00:13,  1.00it/s]
+Loading safetensors checkpoint shards:  67% Completed | 26/39 [00:22<00:14,  1.08s/it]
+Loading safetensors checkpoint shards:  69% Completed | 27/39 [00:22<00:09,  1.21it/s]
+Loading safetensors checkpoint shards:  72% Completed | 28/39 [00:23<00:08,  1.30it/s]
+Loading safetensors checkpoint shards:  74% Completed | 29/39 [00:24<00:07,  1.33it/s]
+Loading safetensors checkpoint shards:  77% Completed | 30/39 [00:24<00:06,  1.35it/s]
+Loading safetensors checkpoint shards:  79% Completed | 31/39 [00:25<00:06,  1.17it/s]
+Loading safetensors checkpoint shards:  82% Completed | 32/39 [00:26<00:05,  1.24it/s]
+Loading safetensors checkpoint shards:  85% Completed | 33/39 [00:27<00:04,  1.29it/s]
+Loading safetensors checkpoint shards:  87% Completed | 34/39 [00:28<00:04,  1.13it/s]
+Loading safetensors checkpoint shards:  90% Completed | 35/39 [00:29<00:03,  1.02it/s]
+Loading safetensors checkpoint shards:  92% Completed | 36/39 [00:30<00:02,  1.11it/s]
+Loading safetensors checkpoint shards:  95% Completed | 37/39 [00:30<00:01,  1.23it/s]
+Loading safetensors checkpoint shards:  97% Completed | 38/39 [00:32<00:00,  1.10it/s]
+Loading safetensors checkpoint shards: 100% Completed | 39/39 [00:32<00:00,  1.18it/s]
+Loading safetensors checkpoint shards: 100% Completed | 39/39 [00:32<00:00,  1.19it/s]
+
+[2026-06-04 13:57:01 TP0] Your GPU does not have native support for FP8 computation but FP8 quantization is being used. Weight-only FP8 compression will be used leveraging the Marlin kernel. This may degrade performance for compute-heavy workloads.
+[2026-06-04 13:57:01 TP1] Your GPU does not have native support for FP8 computation but FP8 quantization is being used. Weight-only FP8 compression will be used leveraging the Marlin kernel. This may degrade performance for compute-heavy workloads.
+Capturing batches (bs=18 avail_mem=14.16 GB):   0%|                                                                         | 0/7 [00:00<?, ?it/s]/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/torch/_dynamo/variables/functions.py:1692: UserWarning: Dynamo detected a call to a `functools.lru_cache`-wrapped function. Dynamo ignores the cache wrapper and directly traces the wrapped function. Silent incorrectness is only a *potential* risk, not something we have observed. Enable TORCH_LOGS="+dynamo" for a DEBUG stack trace.
+  torch._dynamo.utils.warn_once(msg)
+/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/torch/_dynamo/variables/functions.py:1692: UserWarning: Dynamo detected a call to a `functools.lru_cache`-wrapped function. Dynamo ignores the cache wrapper and directly traces the wrapped function. Silent incorrectness is only a *potential* risk, not something we have observed. Enable TORCH_LOGS="+dynamo" for a DEBUG stack trace.
+  torch._dynamo.utils.warn_once(msg)
+/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/torch/_dynamo/variables/functions.py:1598: UserWarning: Dynamo does not know how to trace the builtin `posix._path_splitroot_ex.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).
+If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.
+If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.
+  torch._dynamo.utils.warn_once(explanation + "\n" + "\n".join(hints))
+/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/torch/_dynamo/variables/functions.py:1598: UserWarning: Dynamo does not know how to trace the builtin `posix._path_splitroot_ex.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).
+If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.
+If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.
+  torch._dynamo.utils.warn_once(explanation + "\n" + "\n".join(hints))

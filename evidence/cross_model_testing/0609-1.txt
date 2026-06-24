@@ -1,0 +1,282 @@
+(sglang_059) root@nfparpjlk31e-0:/zhangaimin# no_proxy="$no_proxy,0.0.0.0" python -m sglang.launch_server --model-path /root/.cache/modelscope/hub/models/Qwen/Qwen3-235B-A22B-GPTQ-Int4 --served-model-name qw3-235b-a22b-int4 --port 8082 --host 0.0.0.0 --tp-size 2 --mem-fraction-static 0.85 --max-total-tokens 128144 --max-running-requests 64 --chunked-prefill-size 8192 --enable-flashinfer --log-level warning --reasoning-parser qwen3 --tool-call-parser qwen3_coder --trust-remote-code
+[2026-06-09 13:03:19] INFO gptq.py:388: The model is convertible to gptq_marlin during runtime. Using gptq_marlin kernel.
+[2026-06-09 13:03:19] INFO server_args.py:1835: Attention backend not specified. Use flashinfer backend by default.
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[2026-06-09 13:03:28 TP0] Ignore import error when loading sglang.srt.models.glm_ocr: No module named 'transformers.models.glm_ocr'
+[2026-06-09 13:03:28 TP1] Ignore import error when loading sglang.srt.models.glm_ocr: No module named 'transformers.models.glm_ocr'
+[2026-06-09 13:03:28 TP1] Ignore import error when loading sglang.srt.models.glm_ocr_nextn: No module named 'transformers.models.glm_ocr'
+[2026-06-09 13:03:28 TP0] Ignore import error when loading sglang.srt.models.glm_ocr_nextn: No module named 'transformers.models.glm_ocr'
+[2026-06-09 13:03:28 TP1] Ignore import error when loading sglang.srt.models.glmasr: cannot import name 'GlmAsrConfig' from 'transformers' (/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/transformers/__init__.py)
+[2026-06-09 13:03:28 TP0] Ignore import error when loading sglang.srt.models.glmasr: cannot import name 'GlmAsrConfig' from 'transformers' (/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/transformers/__init__.py)
+Loading safetensors checkpoint shards:   0% Completed | 0/32 [00:00<?, ?it/s]
+[2026-06-09 13:03:29 TP1] Scheduler hit an exception: Traceback (most recent call last):
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/scheduler.py", line 3130, in run_scheduler_process
+    scheduler = Scheduler(
+        server_args,
+    ...<7 lines>...
+        dp_rank,
+    )
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/scheduler.py", line 368, in __init__
+    self.init_model_worker()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/scheduler.py", line 564, in init_model_worker
+    self.init_tp_model_worker()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/scheduler.py", line 522, in init_tp_model_worker
+    self.tp_worker = TpModelWorker(
+                     ~~~~~~~~~~~~~^
+        server_args=self.server_args,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        nccl_port=self.nccl_port,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/tp_worker.py", line 247, in __init__
+    self._init_model_runner()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/tp_worker.py", line 330, in _init_model_runner
+    self._model_runner = ModelRunner(
+                         ~~~~~~~~~~~^
+        model_config=self.model_config,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<14 lines>...
+        draft_model_idx=0 if self.is_multi_layer_eagle else None,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_executor/model_runner.py", line 413, in __init__
+    self.initialize(min_per_gpu_memory)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_executor/model_runner.py", line 493, in initialize
+    self.load_model()
+    ~~~~~~~~~~~~~~~^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_executor/model_runner.py", line 980, in load_model
+    self.model = self.loader.load_model(
+                 ~~~~~~~~~~~~~~~~~~~~~~^
+        model_config=self.model_config,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        device_config=DeviceConfig(self.device, self.gpu_id),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_loader/loader.py", line 677, in load_model
+    self.load_weights_and_postprocess(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model, self._get_all_weights(model_config, model), target_device
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_loader/loader.py", line 686, in load_weights_and_postprocess
+    model.load_weights(weights)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/models/qwen3_moe.py", line 1103, in load_weights
+    weight_loader(
+    ~~~~~~~~~~~~~^
+        param,
+        ^^^^^^
+    ...<3 lines>...
+        expert_id=expert_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 633, in weight_loader
+    self._weight_loader_physical(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        param=param,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        expert_id=physical_expert_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 663, in _weight_loader_physical
+    self._weight_loader_impl(
+    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        param=param,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        expert_id=expert_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 824, in _weight_loader_impl
+    self._load_model_weight_or_group_weight_scale(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        shard_id=shard_id,
+        ^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        tp_rank=tp_rank,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 358, in _load_model_weight_or_group_weight_scale
+    self._load_w2(
+    ~~~~~~~~~~~~~^
+        shard_id=shard_id,
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        is_bias=is_bias,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 527, in _load_w2
+    loaded_weight = loaded_weight.narrow(
+        shard_dim, shard_size * tp_rank, shard_size
+    )
+RuntimeError: start (12) + length (12) exceeds dimension size (12).
+
+[2026-06-09 13:03:29] Received sigquit from a child process. It usually means the child failed.
+Killed
+(sglang_059) root@nfparpjlk31e-0:/zhangaimin# no_proxy="$no_proxy,0.0.0.0" python -m sglang.launch_server --model-path /root/.cache/modelscope/hub/models/Qwen/Qwen3-235B-A22B-GPTQ-Int4 --served-model-name qw3-235b-a22b-int4 --port 8082 --host 0.0.0.0 --tp-size 2 --mem-fraction-static 0.85 --max-total-tokens 128144 --max-running-requests 64 --chunked-prefill-size 8192 --enable-flashinfer --log-level warning --reasoning-parser qwen3 --tool-call-parser qwen3_coder --trust-remote-code
+[2026-06-09 13:04:28] INFO gptq.py:388: The model is convertible to gptq_marlin during runtime. Using gptq_marlin kernel.
+[2026-06-09 13:04:28] INFO server_args.py:1835: Attention backend not specified. Use flashinfer backend by default.
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[2026-06-09 13:04:37 TP1] Ignore import error when loading sglang.srt.models.glm_ocr: No module named 'transformers.models.glm_ocr'
+[2026-06-09 13:04:37 TP1] Ignore import error when loading sglang.srt.models.glm_ocr_nextn: No module named 'transformers.models.glm_ocr'
+[2026-06-09 13:04:37 TP1] Ignore import error when loading sglang.srt.models.glmasr: cannot import name 'GlmAsrConfig' from 'transformers' (/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/transformers/__init__.py)
+[2026-06-09 13:04:37 TP0] Ignore import error when loading sglang.srt.models.glm_ocr: No module named 'transformers.models.glm_ocr'
+[2026-06-09 13:04:37 TP0] Ignore import error when loading sglang.srt.models.glm_ocr_nextn: No module named 'transformers.models.glm_ocr'
+[2026-06-09 13:04:37 TP0] Ignore import error when loading sglang.srt.models.glmasr: cannot import name 'GlmAsrConfig' from 'transformers' (/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/transformers/__init__.py)
+Loading safetensors checkpoint shards:   0% Completed | 0/32 [00:00<?, ?it/s]
+[2026-06-09 13:04:38 TP1] Scheduler hit an exception: Traceback (most recent call last):
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/scheduler.py", line 3130, in run_scheduler_process
+    scheduler = Scheduler(
+        server_args,
+    ...<7 lines>...
+        dp_rank,
+    )
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/scheduler.py", line 368, in __init__
+    self.init_model_worker()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/scheduler.py", line 564, in init_model_worker
+    self.init_tp_model_worker()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/scheduler.py", line 522, in init_tp_model_worker
+    self.tp_worker = TpModelWorker(
+                     ~~~~~~~~~~~~~^
+        server_args=self.server_args,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        nccl_port=self.nccl_port,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/tp_worker.py", line 247, in __init__
+    self._init_model_runner()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/managers/tp_worker.py", line 330, in _init_model_runner
+    self._model_runner = ModelRunner(
+                         ~~~~~~~~~~~^
+        model_config=self.model_config,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<14 lines>...
+        draft_model_idx=0 if self.is_multi_layer_eagle else None,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_executor/model_runner.py", line 413, in __init__
+    self.initialize(min_per_gpu_memory)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_executor/model_runner.py", line 493, in initialize
+    self.load_model()
+    ~~~~~~~~~~~~~~~^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_executor/model_runner.py", line 980, in load_model
+    self.model = self.loader.load_model(
+                 ~~~~~~~~~~~~~~~~~~~~~~^
+        model_config=self.model_config,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        device_config=DeviceConfig(self.device, self.gpu_id),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_loader/loader.py", line 677, in load_model
+    self.load_weights_and_postprocess(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model, self._get_all_weights(model_config, model), target_device
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/model_loader/loader.py", line 686, in load_weights_and_postprocess
+    model.load_weights(weights)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/models/qwen3_moe.py", line 1103, in load_weights
+    weight_loader(
+    ~~~~~~~~~~~~~^
+        param,
+        ^^^^^^
+    ...<3 lines>...
+        expert_id=expert_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 633, in weight_loader
+    self._weight_loader_physical(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        param=param,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        expert_id=physical_expert_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 663, in _weight_loader_physical
+    self._weight_loader_impl(
+    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        param=param,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        expert_id=expert_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 824, in _weight_loader_impl
+    self._load_model_weight_or_group_weight_scale(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        shard_id=shard_id,
+        ^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        tp_rank=tp_rank,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 358, in _load_model_weight_or_group_weight_scale
+    self._load_w2(
+    ~~~~~~~~~~~~~^
+        shard_id=shard_id,
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        is_bias=is_bias,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/root/miniforge3/envs/sglang_059/lib/python3.13/site-packages/sglang/srt/layers/moe/fused_moe_triton/layer.py", line 527, in _load_w2
+    loaded_weight = loaded_weight.narrow(
+        shard_dim, shard_size * tp_rank, shard_size
+    )
+RuntimeError: start (12) + length (12) exceeds dimension size (12).
+
+[2026-06-09 13:04:38] Received sigquit from a child process. It usually means the child failed.
+Killed
